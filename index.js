@@ -15,20 +15,6 @@ let orderGame = [head,letter_box,emptySpace]
 let time = 0
 let timeOut = 0
 
-function fadeInGame(){
-  for(let i = 0; i < orderGame.length; i ++){
-    setTimeout(startFade, time, orderGame[i], i)
-    time += 1200
-  }
-}
-
-function fadeOutGame(){
-  for(let i = orderGame.length; i >= 0; i --){
-    setTimeout(startFadeOut, time, orderGame[i], i)
-    timeOut += 1200
-  }
-}
-
 function fadeInTitle(){
   for(let i = 0; i < orderTitle.length; i ++){
     setTimeout(startFade, time, orderTitle[i], i)
@@ -36,14 +22,19 @@ function fadeInTitle(){
   }
 }
 
-function startFadeOut(x,i){
-  opacity[i] = 0
-  setInterval(fadeIn, 10, x, i)
+function fadeInGame(){
+  for(let i = 0; i < orderGame.length; i ++){
+    setTimeout(startFade, time, orderGame[i], i)
+    time += 1200
+  }
 }
 
 function startFade(x,i){
   opacity[i] = 0
-  setInterval(fadeIn, 10, x, i)
+  let interval = setInterval(fadeIn, 10, x, i)
+  setTimeout(function(){
+    clearInterval(interval)
+  }, 1200)
 }
 
 function fadeIn(x, i) {
@@ -52,7 +43,32 @@ function fadeIn(x, i) {
     opacity[i] += 0.01
   }
   else{
-    clearInterval()
+    time = 0
+  }
+}
+
+function fadeOutGame(){
+  for(let i = orderGame.length; i >= 0; i --){
+    setTimeout(startFadeOut, timeOut, orderGame[i], i)
+    timeOut += 1200
+  }
+}
+
+function startFadeOut(x,i){
+  opacity[i] = 1
+  let interval = setInterval(fadeOut, 10, x, i)
+  setTimeout(function(){
+    clearInterval(interval)
+  }, 1200)
+}
+
+function fadeOut(x, i) {
+  if(opacity[i] >= 0){
+    x.style.opacity = opacity[i]
+    opacity[i] -= 0.01
+  }
+  else{
+    timeOut = 0
   }
 }
 
@@ -84,13 +100,17 @@ const milan = ['Milan','ibrahimovic','tonali','bennacer','tomori','maignan','gir
 
 const allTeams = [psg,manU,Spurs,city,arsenal,chelsea,liverpool,barca,real,atletico,bayern,dortmund,juve,inter,milan]
 
+generateLetters()
 generateWord()
 displayLives()
 
-for(let i= 0; i < letters.length; i++){
-  letter_box.innerHTML +=`<button class="letter-btn" id="${letters[i]}" 
-  onclick='letterClicked("${letters[i]}")'>${letters[i]}`
+function generateLetters(){
+  for(let i= 0; i < letters.length; i++){
+    letter_box.innerHTML +=`<button class="letter-btn" id="${letters[i]}" 
+    onclick='letterClicked("${letters[i]}")'>${letters[i]}`
+  }
 }
+
 
 function letterClicked(x){
   if(lives > 0){
@@ -148,7 +168,7 @@ function checkLetter(x){
         count ++
       }
       else{
-        obj.style.background = 'rgb(162, 208, 65)'
+        obj.style.background = 'rgb(101, 255, 119)'
         emptyLetter.innerHTML += `${letterAry[i]} `
       }
     }
@@ -188,5 +208,18 @@ function getLetters(){
 
 reset.addEventListener('click', function(){
   fadeOutGame()
-  fadeInGame()
+  subject =''
+  word = ''
+  lives = 6
+  letters = getLetters()
+  letterAry = []
+  wAry = [] 
+  setTimeout(function(){
+    emptyLetter.innerHTML = ""
+    letter_box.innerHTML = ""
+    generateLetters()
+    generateWord()
+    displayLives()
+  },3000)
+  setTimeout(fadeInGame, 5000)
 })
