@@ -102,7 +102,6 @@ const allTeams = [psg,manU,Spurs,city,arsenal,chelsea,liverpool,barca,real,atlet
 
 generateLetters()
 generateWord()
-displayLives()
 
 function generateLetters(){
   for(let i= 0; i < letters.length; i++){
@@ -118,8 +117,8 @@ function letterClicked(x){
       letters.splice(letters.indexOf(x), 1)
       checkLetter(x)
       }
-  displayLives()
   }
+  displayLives()
 }
 
 function generateWord(){
@@ -137,7 +136,6 @@ function displayLives(){
   if(checkWinner()){
     livesLeft.innerHTML = `You Win!`
     lives = 0
-    clearInterval()
   }
   else if(lives == 0){
     livesLeft.innerHTML = `You lost`
@@ -164,8 +162,9 @@ function checkLetter(x){
     for(let i = 0 ; i < wAry.length; i++){
       if(i == pos[count]){  
         letterAry[pos[count]] = x
-        emptyLetter.innerHTML += x + " "
+        emptyLetter.innerHTML += x
         count ++
+        displayLives()
       }
       else{
         obj.style.background = 'rgb(101, 255, 119)'
@@ -194,7 +193,7 @@ function getLetterPos(x){
 function checkWinner(){
   let win = true
   for(let i = 0; i < letterAry.length; i++){
-    if(letterAry[i] === "_"){
+    if(letterAry[i] == "_"){
       win = false
     }
   }
@@ -214,6 +213,7 @@ reset.addEventListener('click', function(){
   letters = getLetters()
   letterAry = []
   wAry = [] 
+  reset.disabled = true
   setTimeout(function(){
     emptyLetter.innerHTML = ""
     letter_box.innerHTML = ""
@@ -222,4 +222,7 @@ reset.addEventListener('click', function(){
     displayLives()
   },3000)
   setTimeout(fadeInGame, 5000)
+  setTimeout(function(){
+    reset.disabled = false
+  },10000)
 })
