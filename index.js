@@ -53,7 +53,7 @@ let letterAry = []
 let wAry = [] 
 const psg = ['PSG','messi','mbappe','neymar','verratti','hakimi','ramos','marquinhos','donnarumma','mendes','kimpembe','vitinha','sanches','navas']
 const manU = ['United','cristiano','maguire','varane','martinez','casemiro','anthony','fernandes','rashford','degea','shaw','martial','mctominay']
-const Spurs =['Tottenham','kane','son','lloris','richarlison','dier','sanchez','moura','lenget','romero','emerson','perisic','winks']
+const spurs =['Tottenham','kane','son','lloris','richarlison','dier','sanchez','moura','lenget','romero','emerson','perisic','winks']
 const city = ['City','haaland','hilva','debruyne','alvarez','ederson','rodri','walker','cancelo','foden','mahrez','grealish','ake','dias','stones']
 const arsenal = ['Arsenal','saka','martinelli','jesus','ramsdale','odegaard','saliba','partey','xhaka','white','holding','rowe','elneny','nketiah']
 const chelsea = ['Chelsea','mount','silva','mendy','koulibaly','kante','chilwell','kovacic','azpilicueta','pulisic','havertz','jorginho','sterling']
@@ -68,7 +68,7 @@ const inter = ['Inter','lakaku','martinez','barella','skriniar','onana','dzeko',
 const milan = ['Milan','ibrahimovic','tonali','bennacer','tomori','maignan','giroud','diaz','leao','calabria','kjaer','rebic','messias']
 
 
-const allTeams = [psg,manU,Spurs,city,arsenal,chelsea,liverpool,barca,real,atletico,bayern,dortmund,juve,inter,milan]
+const allTeams = [psg,manU,spurs,city,arsenal,chelsea,liverpool,barca,real,atletico,bayern,dortmund,juve,inter,milan]
 
 generateWord()
 displayLives()
