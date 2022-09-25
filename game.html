@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hangman</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+</head>
+<body onload="fadeInGame()">
+    <header class="header" id="head_text">
+        <div id="entireHead">
+            <button id="headToTitle"><a href="title.html">Title</a></button>
+            <div id="hangman">Hangman</div>
+        </div>
+        <div id="subtext">Use the alphabet below the guess the word</div>
+    </header>
+    <main id="letters_container">
+        <div id="all_letters"></div>
+    </main>
+    <div id="emptySpaces">
+        <div id="emptyLetter"></div>
+        <div id="stickman"></div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
