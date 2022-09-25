@@ -36,6 +36,11 @@ function fadeInTitle(){
   }
 }
 
+function startFadeOut(x,i){
+  opacity[i] = 0
+  setInterval(fadeIn, 10, x, i)
+}
+
 function startFade(x,i){
   opacity[i] = 0
   setInterval(fadeIn, 10, x, i)
