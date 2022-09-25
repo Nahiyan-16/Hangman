@@ -55,10 +55,22 @@ a{
     display: flex;
 }
 
-#headToTitle:first-child{
+#headToTitle{
     font-size: 25px;
     margin-left: 25px;
-    margin-right: 33%;
+    margin-right: auto;
+    font-family: inherit;
+    border: none;
+    background-color: rgb(206, 255, 101);
+    color: inherit;
+    cursor: pointer;
+}
+
+#reset:last-child{
+    text-decoration: underline;
+    margin-right: 25px;
+    margin-left: auto;
+    font-size: 25px;
     font-family: inherit;
     border: none;
     background-color: rgb(206, 255, 101);

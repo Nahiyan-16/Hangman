@@ -7,16 +7,25 @@ let letter_box = document.getElementById("letters_container")
 let emptySpace = document.getElementById("emptySpaces")
 let emptyLetter = document.getElementById("emptyLetter")
 let livesLeft = document.getElementById("lives")
+const reset = document.getElementById("reset")
 
 let opacity = []
 let orderTitle = [first, second, third, play_btn]
 let orderGame = [head,letter_box,emptySpace]
 let time = 0
+let timeOut = 0
 
 function fadeInGame(){
   for(let i = 0; i < orderGame.length; i ++){
     setTimeout(startFade, time, orderGame[i], i)
     time += 1200
+  }
+}
+
+function fadeOutGame(){
+  for(let i = orderGame.length; i >= 0; i --){
+    setTimeout(startFadeOut, time, orderGame[i], i)
+    timeOut += 1200
   }
 }
 
@@ -48,7 +57,7 @@ GAME JAVASCRIPT
 let subject =''
 let word = ''
 let lives = 6
-letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+let letters = getLetters()
 let letterAry = []
 let wAry = [] 
 const psg = ['PSG','messi','mbappe','neymar','verratti','hakimi','ramos','marquinhos','donnarumma','mendes','kimpembe','vitinha','sanches','navas']
@@ -80,9 +89,7 @@ for(let i= 0; i < letters.length; i++){
 
 function letterClicked(x){
   if(lives > 0){
-  let obj = document.getElementById(x)
     if(letters.includes(x)){
-      obj.style.background = 'rgb(124, 153, 62)'
       letters.splice(letters.indexOf(x), 1)
       checkLetter(x)
       }
@@ -124,17 +131,19 @@ function revealWord(){
 }
 
 function checkLetter(x){
+  let obj = document.getElementById(x)
   if(wAry.includes(x)){
     let pos = getLetterPos(x)
     emptyLetter.innerHTML = `${subject[0]}: `
     let count = 0
     for(let i = 0 ; i < wAry.length; i++){
-      if(i == pos[count]){
+      if(i == pos[count]){  
         letterAry[pos[count]] = x
         emptyLetter.innerHTML += x + " "
         count ++
       }
       else{
+        obj.style.background = 'rgb(162, 208, 65)'
         emptyLetter.innerHTML += `${letterAry[i]} `
       }
     }
@@ -142,6 +151,7 @@ function checkLetter(x){
     livesLeft.innerHTML += wAry
   }
   else{
+    obj.style.background = 'rgb(249, 127, 97)'
     lives--
   }
 }
@@ -165,3 +175,13 @@ function checkWinner(){
   }
   return win
 }
+
+function getLetters(){
+  let x = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+  return x
+}
+
+reset.addEventListener('click', function(){
+  fadeOutGame()
+  fadeInGame()
+})
