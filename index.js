@@ -9,6 +9,8 @@ let emptyLetter = document.getElementById("emptyLetter")
 let livesLeft = document.getElementById("lives")
 const next = document.getElementById("next-btn")
 const reset = document.getElementById("reset-btn")
+const mute = document.getElementById("mute")
+const audio = document.getElementById("audio")
 
 let opacity = []
 let orderTitle = [first, second, third, play_btn]
@@ -265,3 +267,15 @@ function checkHiScore(){
   }
   hiScoreBoard.innerHTML = `Hi Score: ${hiScore}`
 }
+
+let audioKey = 0
+mute.addEventListener('click', function(){
+  if(audioKey == 0){
+    audio.pause()
+    audioKey++
+  }
+  else{
+    audio.play()
+    audioKey--
+  }
+})
