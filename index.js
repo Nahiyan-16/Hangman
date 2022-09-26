@@ -7,40 +7,45 @@ let letter_box = document.getElementById("letters_container")
 let emptySpace = document.getElementById("emptySpaces")
 let emptyLetter = document.getElementById("emptyLetter")
 let livesLeft = document.getElementById("lives")
-const reset = document.getElementById("reset")
+const next = document.getElementById("next-btn")
+const reset = document.getElementById("reset-btn")
 
 let opacity = []
 let orderTitle = [first, second, third, play_btn]
 let orderGame = [head,letter_box,emptySpace]
 let time = 0
 let timeOut = 0
+let score = 0
+let hiScore = 0
+
+next.disabled = true
 
 function fadeInTitle(){
   for(let i = 0; i < orderTitle.length; i ++){
     setTimeout(startFade, time, orderTitle[i], i)
-    time += 1200
+    time += 600
   }
 }
 
 function fadeInGame(){
   for(let i = 0; i < orderGame.length; i ++){
     setTimeout(startFade, time, orderGame[i], i)
-    time += 1200
+    time += 600
   }
 }
 
 function startFade(x,i){
   opacity[i] = 0
-  let interval = setInterval(fadeIn, 10, x, i)
+  let interval = setInterval(fadeIn, 50, x, i)
   setTimeout(function(){
     clearInterval(interval)
-  }, 1200)
+  }, 600)
 }
 
 function fadeIn(x, i) {
   if(opacity[i] < 1){
     x.style.opacity = opacity[i]
-    opacity[i] += 0.01
+    opacity[i] += 0.10
   }
   else{
     time = 0
@@ -50,22 +55,22 @@ function fadeIn(x, i) {
 function fadeOutGame(){
   for(let i = orderGame.length; i >= 0; i --){
     setTimeout(startFadeOut, timeOut, orderGame[i], i)
-    timeOut += 1200
+    timeOut += 600
   }
 }
 
 function startFadeOut(x,i){
   opacity[i] = 1
-  let interval = setInterval(fadeOut, 10, x, i)
+  let interval = setInterval(fadeOut, 50, x, i)
   setTimeout(function(){
     clearInterval(interval)
-  }, 1200)
+  }, 600)
 }
 
 function fadeOut(x, i) {
   if(opacity[i] >= 0){
     x.style.opacity = opacity[i]
-    opacity[i] -= 0.01
+    opacity[i] -= 0.10
   }
   else{
     timeOut = 0
@@ -102,6 +107,7 @@ const allTeams = [psg,manU,Spurs,city,arsenal,chelsea,liverpool,barca,real,atlet
 
 generateLetters()
 generateWord()
+checkHiScore()
 
 function generateLetters(){
   for(let i= 0; i < letters.length; i++){
@@ -135,10 +141,15 @@ function generateWord(){
 function displayLives(){
   if(checkWinner()){
     livesLeft.innerHTML = `You Win!`
+    score += 1
+    displayScore()
+    next.disabled = false
     lives = 0
+    checkHiScore()
   }
   else if(lives == 0){
     livesLeft.innerHTML = `You lost`
+    score = 0
     revealWord()
   }
   else if(lives > 1){
@@ -205,7 +216,18 @@ function getLetters(){
   return x
 }
 
-reset.addEventListener('click', function(){
+next.addEventListener('click', function(){
+  resetNext(1)
+})
+
+reset.addEventListener('click',function(){
+  resetNext(2)
+})
+
+function resetNext(num){
+  if(num === 2){
+    score = 0
+  }
   fadeOutGame()
   subject =''
   word = ''
@@ -213,16 +235,33 @@ reset.addEventListener('click', function(){
   letters = getLetters()
   letterAry = []
   wAry = [] 
-  reset.disabled = true
+  next.disabled = true
   setTimeout(function(){
     emptyLetter.innerHTML = ""
     letter_box.innerHTML = ""
     generateLetters()
     generateWord()
     displayLives()
+    checkHiScore()
+    displayScore()
   },3000)
-  setTimeout(fadeInGame, 5000)
+  setTimeout(fadeInGame, 2500)
   setTimeout(function(){
-    reset.disabled = false
-  },10000)
-})
+    next.disabled = false
+  },7000)
+}
+
+function displayScore(){
+  let scoreBoard = document.getElementById('score')
+  scoreBoard.innerHTML = `Score: ${score}`
+}
+
+function checkHiScore(){
+  let hiScoreBoard = document.getElementById('hiScore')
+  hiScore = localStorage.getItem('myHiScore')
+  if(score >= hiScore){
+    hiScore = score
+    localStorage.setItem('myHiScore', hiScore)
+  }
+  hiScoreBoard.innerHTML = `Hi Score: ${hiScore}`
+}
