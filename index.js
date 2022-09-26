@@ -144,11 +144,10 @@ function displayLives(){
     score += 1
     displayScore()
     next.disabled = false
-    lives += 2
+    lives = 0
     checkHiScore()
   }
   else if(lives == 0){
-    next.disabled = true
     livesLeft.innerHTML = `You lost`
     score = 0
     revealWord()
@@ -228,11 +227,11 @@ reset.addEventListener('click',function(){
 function resetNext(num){
   if(num === 2){
     score = 0
-    lives = 6
   }
   fadeOutGame()
   subject =''
   word = ''
+  lives = 6
   letters = getLetters()
   letterAry = []
   wAry = [] 
