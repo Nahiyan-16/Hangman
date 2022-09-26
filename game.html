@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <embed src="bg.mp3" autostart="true" loop="true" hidden="true">
     <title>Hangman</title>
     <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +11,10 @@
     <header class="header" id="head_text">
         <div id="entireHead">
             <button id="headToTitle"><a href="index.html">Title</a></button>
-            <div id="hangman">Hangman</div>
+            <div id="hangman">
+                Hangman
+                <embed src="bg.mp3" autostart="true" loop="true" hidden="true">
+            </div>
             <button class='btns' id="reset-btn">Reset</button>
         </div>
         <div id="subtext">Use the alphabet below the guess the player</div>
