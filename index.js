@@ -189,6 +189,7 @@ function checkLetter(x){
   }
   else{
     obj.style.background = 'rgb(249, 127, 97)'
+    obj.style.textDecoration = 'line-through'
     lives--
   }
 }
@@ -238,6 +239,7 @@ function resetNext(num){
   letterAry = []
   wAry = [] 
   next.disabled = true
+  reset.disabled = true
   setTimeout(function(){
     emptyLetter.innerHTML = ""
     letter_box.innerHTML = ""
@@ -250,6 +252,7 @@ function resetNext(num){
   setTimeout(fadeInGame, 2500)
   setTimeout(function(){
     next.disabled = false
+    reset.disabled = false
   },7000)
 }
 
