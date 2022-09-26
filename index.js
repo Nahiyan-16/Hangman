@@ -264,8 +264,4 @@ function checkHiScore(){
     localStorage.setItem('myHiScore', hiScore)
   }
   hiScoreBoard.innerHTML = `Hi Score: ${hiScore}`
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 2f77a94a81e2ce958217b9aadd80aa0eb0c5825f
