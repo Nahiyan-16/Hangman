@@ -7,10 +7,11 @@ let letter_box = document.getElementById("letters_container")
 let emptySpace = document.getElementById("emptySpaces")
 let emptyLetter = document.getElementById("emptyLetter")
 let livesLeft = document.getElementById("lives")
-const next = document.getElementById("next-btn")
 const reset = document.getElementById("reset-btn")
 const mute = document.getElementById("mute")
 const audio = document.getElementById("audio")
+let timer = document.getElementById("timer")
+const changeTopic = document.getElementById("changeTopic")
 
 let opacity = []
 let orderTitle = [first, second, third, play_btn]
@@ -19,8 +20,10 @@ let time = 0
 let timeOut = 0
 let score = 0
 let hiScore = 0
+let timerTime = 92000
+let topic = ''
 
-next.disabled = true
+let intervalTimer = setInterval(setUpTimer, 1000)
 
 function fadeInTitle(){
   for(let i = 0; i < orderTitle.length; i ++){
@@ -80,36 +83,24 @@ function fadeOut(x, i) {
 }
 
 /*
-GAME JAVASCRIPT
+=========================================
+||         GAME JAVASCRIPT             ||
+=========================================
 */
+
 let subject =''
 let word = ''
 let lives = 6
 let letters = getLetters()
 let letterAry = []
 let wAry = [] 
-const psg = ['PSG','messi','mbappe','neymar','verratti','hakimi','ramos','marquinhos','donnarumma','mendes','kimpembe','vitinha','sanches','navas']
-const manU = ['United','cristiano','maguire','varane','martinez','casemiro','anthony','fernandes','rashford','degea','shaw','martial','mctominay']
-const Spurs =['Tottenham','kane','son','lloris','richarlison','dier','sanchez','moura','lenget','romero','emerson','perisic','winks']
-const city = ['City','haaland','hilva','debruyne','alvarez','ederson','rodri','walker','cancelo','foden','mahrez','grealish','ake','dias','stones']
-const arsenal = ['Arsenal','saka','martinelli','jesus','ramsdale','odegaard','saliba','partey','xhaka','white','holding','rowe','elneny','nketiah']
-const chelsea = ['Chelsea','mount','silva','mendy','koulibaly','kante','chilwell','kovacic','azpilicueta','pulisic','havertz','jorginho','sterling']
-const liverpool = ['Liverpool','salah','firmino','nunez','jota','diaz','fabinho','thiago','alisson','virgil','trent','robertson','matip','gomez']
-const barca = ["Barcelona",'fati','pedri','gavi','busquets','lewandowski','araujo','alba','terstegen','dejong','kessie','depay','dembele','kounde','raphinha']
-const real = ['Real madrid','benzema','vinicius','rodrygo','courtois','modric','kroos','camavinga','mendy','hazard','rudiger','alaba','militao','valverde']
-const atletico = ['Atletico','felix','gimenez','koke','saul','oblak','griezman','savic','correa','llorente','carrasco','depaul','lemar','morata']
-const bayern = ['Bayern','mane','sane','hernandez','deligt','kimmich','goretzka','neuer','upamecano','gnabry','davies','musiala','coman','sabitzer']
-const dortmund = ['Dortmund','reus','reyna','bellingham','humels','brandt','can','hazard','sule','guerreiro']
-const juve = ['Juventus','dimaria','kean','vlahovic','bonucci','cuadrado','rabiot','milik','paredes','mckennie','chiesa','danilo','pogba','sandro']
-const inter = ['Inter','lakaku','martinez','barella','skriniar','onana','dzeko','calhanoglu','handnovic','brozovic']
-const milan = ['Milan','ibrahimovic','tonali','bennacer','tomori','maignan','giroud','diaz','leao','calabria','kjaer','rebic','messias']
 
-
-const allTeams = [psg,manU,Spurs,city,arsenal,chelsea,liverpool,barca,real,atletico,bayern,dortmund,juve,inter,milan]
+let sub = getSoccerTeams()
 
 generateLetters()
 generateWord()
 checkHiScore()
+setUpTimer()
 
 function generateLetters(){
   for(let i= 0; i < letters.length; i++){
@@ -129,29 +120,42 @@ function letterClicked(x){
   displayLives()
 }
 
+function containsWhitespace(str) {
+  return /\s/.test(str);
+}
+
 function generateWord(){
-  subject = allTeams[Math.floor(Math.random() * allTeams.length)]
+  subject = sub[Math.floor(Math.random() * sub.length)]
   emptyLetter.innerHTML += `${subject[0]}: `
   word = subject[Math.floor(Math.random() * subject.length) + 1]
+  word = word.toLowerCase()
   wAry = word.split("")
   for(let i = 0; i < word.length; i++){
-    letterAry[i] = '_'
+    if(wAry[i] == '-'){
+      letterAry[i] = '-'
+    }
+    else if(containsWhitespace(wAry[i])){
+      letterAry[i] = "\u00A0"
+    }
+    else{
+      letterAry[i] = '_'
+    }
     emptyLetter.innerHTML += `${letterAry[i]} `
   }
 }
 
 function displayLives(){
   if(checkWinner()){
-    livesLeft.innerHTML = `You Win!`
     score += 1
     displayScore()
-    next.disabled = false
-    lives = 0
     checkHiScore()
+    resetNext()
   }
-  else if(lives == 0){
+  else if(lives == 0 || timerTime < 100){
     livesLeft.innerHTML = `You lost`
     score = 0
+    timerTime = 0
+    timer.innerHTML = `Time: 0`
     revealWord()
   }
   else if(lives > 1){
@@ -219,39 +223,67 @@ function getLetters(){
   return x
 }
 
-next.addEventListener('click', function(){
-  resetNext(1)
-})
-
 reset.addEventListener('click',function(){
   resetNext(2)
 })
 
+let changeTopicKey = 0
+
+changeTopic.addEventListener('click',changeTopicFunc)
+
+function changeTopicFunc(){
+  if(changeTopicKey == 0){
+    topic = 'Football'
+    setTimeout(function(){
+      changeTopic.innerHTML = `${topic}`
+    },2500)
+    sub = getCities()
+    changeTopicKey++
+  }
+  else{
+    topic = 'Cities'
+    setTimeout(function(){
+      changeTopic.innerHTML = `${topic}`
+    },2500)
+    sub = getSoccerTeams()
+    changeTopicKey --
+  }
+  resetNext(2)
+}
+
 function resetNext(num){
   if(num === 2){
     score = 0
+    lives = 6
+    setTimeout(function(){
+      timerTime = 92000
+    },3000)
+  }
+  else{
+    lives+= 2
+    timerTime += 31000
   }
   fadeOutGame()
   subject =''
   word = ''
-  lives = 6
   letters = getLetters()
   letterAry = []
   wAry = [] 
-  next.disabled = true
   reset.disabled = true
   setTimeout(function(){
     emptyLetter.innerHTML = ""
     letter_box.innerHTML = ""
+    clearInterval(intervalTimer)
+    intervalTimer = setInterval(setUpTimer, 1000)
     generateLetters()
     generateWord()
     displayLives()
     checkHiScore()
     displayScore()
+    setUpTimer()
   },3000)
   setTimeout(fadeInGame, 2500)
   setTimeout(function(){
-    next.disabled = false
     reset.disabled = false
   },7000)
 }
@@ -282,3 +314,54 @@ mute.addEventListener('click', function(){
     audioKey--
   }
 })
+
+function setUpTimer(){
+  timerTime -= 1000
+  let timeTemp = timerTime/1000
+  if(timeTemp >= 60){ 
+    let minute = Math.floor(timeTemp/60)
+    timeTemp %= 60
+    if(timeTemp < 10){
+      timer.innerHTML = `Time: ${minute}:0${timeTemp}`
+    }
+    else{
+      timer.innerHTML = `Time: ${minute}:${timeTemp}`
+    }
+  }
+  else{
+    timer.innerHTML = `Time: ${timeTemp}`
+  }
+  if(timerTime < 1000){
+    clearInterval(intervalTimer)
+    displayLives()
+  }
+}
+
+function getCities(){
+  const citites = ['City','Hong Kong', 'Bangkok', 'Singapore', 'London', 'Paris', 'Dubai', 'Delhi', 'Istanbul', 'New York City', 'Antalya', 'Mumbai', 'Phuket', 'Tokyo',
+ 'Rome', 'Mecca', 'Prague', 'Seoul', 'Osaka', 'Medina', 'Amsterdam', 'Denpasar', 'Miami', 'Chennai', 'Shanghai', 'Los Angeles', 'Barcelona',
+  'Cairo', 'Las Vegas', 'Milan', 'Vienna', 'Athens', 'Berlin', 'Cancun', 'Moscow', 'Orlando', 'Madrid', 'Venice']
+  let allCities = [citites]
+  return allCities
+}
+
+
+function getSoccerTeams(){
+  const psg = ['PSG','messi','mbappe','neymar','verratti','hakimi','ramos','marquinhos','donnarumma','mendes','kimpembe','vitinha','sanches','navas']
+  const manU = ['United','ronaldo','maguire','varane','martinez','casemiro','anthony','fernandes','rashford','de gea','shaw','martial','mctominay']
+  const Spurs =['Tottenham','kane','son','lloris','richarlison','dier','sanchez','moura','lenget','romero','emerson','perisic','winks']
+  const city = ['City','haaland','silva','de bruyne','alvarez','ederson','rodri','walker','cancelo','foden','mahrez','grealish','ake','dias','stones']
+  const arsenal = ['Arsenal','saka','martinelli','jesus','ramsdale','odegaard','saliba','partey','xhaka','white','holding','smith-rowe','elneny','nketiah']
+  const chelsea = ['Chelsea','mount','silva','mendy','koulibaly','kante','chilwell','kovacic','azpilicueta','pulisic','havertz','jorginho','sterling']
+  const liverpool = ['Liverpool','salah','firmino','nunez','jota','diaz','fabinho','thiago','alisson','van dijk','trent','robertson','matip','gomez']
+  const barca = ["Barcelona",'fati','pedri','gavi','busquets','lewandowski','araujo','alba','ter stegen','de jong','kessie','depay','dembele','kounde','raphinha']
+  const real = ['Real madrid','benzema','vinicius','rodrygo','courtois','modric','kroos','camavinga','mendy','hazard','rudiger','alaba','militao','valverde']
+  const atletico = ['Atletico','felix','gimenez','koke','saul','oblak','griezmann','savic','correa','llorente','carrasco','de paul','lemar','morata']
+  const bayern = ['Bayern','mane','sane','hernandez','de ligt','kimmich','goretzka','neuer','upamecano','gnabry','davies','musiala','coman','sabitzer']
+  const dortmund = ['Dortmund','reus','reyna','bellingham','hummels','brandt','can','hazard','sule','guerreiro']
+  const juve = ['Juventus','di maria','kean','vlahovic','bonucci','cuadrado','rabiot','milik','paredes','mckennie','chiesa','danilo','pogba','sandro']
+  const inter = ['Inter','lakaku','martinez','barella','skriniar','onana','dzeko','calhanoglu','handnovic','brozovic']
+  const milan = ['Milan','ibrahimovic','tonali','bennacer','tomori','maignan','giroud','diaz','leao','calabria','kjaer','rebic','messias']
+  let allTeams = [psg,manU,Spurs,city,arsenal,chelsea,liverpool,barca,real,atletico,bayern,dortmund,juve,inter,milan]
+  return allTeams
+}

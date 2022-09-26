@@ -14,17 +14,24 @@
             <div id="hangman">Hangman</div>
             <button class='btns' id="reset-btn">Reset</button>
         </div>
-        <div id="subtext">Each player guessed grants you 2 extra lives</div>
+        <div id="subtext">
+            <div>For each word guessed: 2 extra lives & 30 seconds</div>
+            <div>            
+                <p>Change topics to<button class='btns' id="changeTopic">Cities</button></p>
+            </div>
+        </div>
     </header>
     <main id="letters_container">
         <div id="all_letters"></div>
     </main>
     <div id="emptySpaces">
         <div id="emptyLetter"></div>
-        <div id="lives">6 lives left</div>
+        <div id="time_section">
+            <div class="time_css" id="lives">6 lives left</div>
+            <div class="time_css" id="timer">Time: 0</div>
+        </div>
         <div id="footer">
             <div id="score">Score: 0</div>
-            <button class='btns' id="next-btn">next</button>
             <div id="hiScore">Hi Score: 0</div>
             <audio id="audio" autoplay="autoplay" loop="true">
                 <source src="bg.mp3" type="audio/mp3">
