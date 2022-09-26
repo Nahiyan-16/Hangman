@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <embed src="bg.mp3" autostart="true" loop="true" hidden="true">
     <title>Hangman</title>
     <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,7 +9,10 @@
 </head>
 <body onload="fadeInTitle()">
     <main id="title_main">
-        <div class="title_text" id="first">THE</div>
+        <div class="title_text" id="first">
+            THE
+            <embed src="bg.mp3" autostart="true" loop="true" hidden="true">
+        </div>
         <div class="title_text" id="second">FOOTBALL</div>
         <div class="title_text" id="third">HANGMAN!</div>
         <button id="play-btn"><a href="game.html">Play</a></button>
