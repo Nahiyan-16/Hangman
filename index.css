@@ -66,16 +66,19 @@ a{
     cursor: pointer;
 }
 
-#reset:last-child{
+.btns{
     text-decoration: underline;
-    margin-right: 25px;
-    margin-left: auto;
     font-size: 25px;
     font-family: inherit;
     border: none;
     background-color: rgb(206, 255, 101);
     color: inherit;
     cursor: pointer;
+}
+
+#reset-btn{
+    margin-left: auto;
+    margin-right: 25px;
 }
 
 .header{
@@ -99,11 +102,11 @@ a{
 .letter-btn{
     color: rgb(4, 2, 52);
     background-color: rgb(206, 255, 101);
+    border-radius: 10px;
     border: none;
     font-family: inherit;
     font-size: 60px;
     cursor: pointer;
-    border-radius: 50px;
     margin-right: 5px;
 }
 
@@ -129,4 +132,22 @@ a{
 #lives{
     font-size: 50px;
     color: rgb(172, 26, 26);
+}
+
+#footer{
+    margin-top: 40px;
+    display: flex;
+    width: 100%;
+}
+
+#score{
+    margin-right: auto;
+    margin-left: 20%;
+    font-size: 30px;
+}
+
+#hiScore{
+    margin-left: auto;
+    margin-right: 20%;
+    font-size: 30px;
 }
