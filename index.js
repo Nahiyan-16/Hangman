@@ -9,9 +9,11 @@ let emptyLetter = document.getElementById("emptyLetter")
 let livesLeft = document.getElementById("lives")
 const reset = document.getElementById("reset-btn")
 const mute = document.getElementById("mute")
+const invert = document.getElementById("invert")
 const audio = document.getElementById("audio")
 let timer = document.getElementById("timer")
 const changeTopic = document.getElementById("changeTopic")
+let body = document.getElementById("body")
 
 let opacity = []
 let orderTitle = [first, second, third, play_btn]
@@ -184,7 +186,7 @@ function checkLetter(x){
         displayLives()
       }
       else{
-        obj.style.background = 'rgb(101, 255, 119)'
+        obj.style.background = 'rgb(22, 161, 49)'
         emptyLetter.innerHTML += `${letterAry[i]} `
       }
     }
@@ -192,7 +194,7 @@ function checkLetter(x){
     livesLeft.innerHTML += wAry
   }
   else{
-    obj.style.background = 'rgb(249, 127, 97)'
+    obj.style.background = 'rgb(151, 49, 49)'
     obj.style.textDecoration = 'line-through'
     lives--
   }
@@ -306,12 +308,36 @@ function checkHiScore(){
 let audioKey = 0
 mute.addEventListener('click', function(){
   if(audioKey == 0){
+    mute.innerHTML = `🔇`
     audio.pause()
     audioKey++
   }
   else{
+    mute.innerHTML = `🔊`
     audio.play()
     audioKey--
+  }
+})
+
+let invertKey = 0
+invert.addEventListener('click', function(){
+  let ary = [body]
+  if(invertKey == 0){
+    invert.innerHTML = `🌔`
+    for(let i = 0; i < ary.length; i++){
+      ary[i].style.color = 'rgb(206, 255, 101)'
+      ary[i].style.backgroundColor = 'rgb(4, 47, 84)'
+    }
+    invertKey ++
+
+  }
+  else{
+    invert.innerHTML = `🌒`
+    for(let i = 0; i < ary.length; i++){
+      ary[i].style.color = 'rgb(4, 47, 84)'
+      ary[i].style.backgroundColor = 'rgb(206, 255, 101)'
+    }
+    invertKey--
   }
 })
 
