@@ -305,6 +305,7 @@ function checkHiScore(){
   hiScoreBoard.innerHTML = `Hi Score: ${hiScore}`
 }
 
+audio.volume = '0.3'
 let audioKey = 0
 mute.addEventListener('click', function(){
   if(audioKey == 0){
