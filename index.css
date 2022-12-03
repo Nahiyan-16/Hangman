@@ -39,7 +39,7 @@ body{
     font-size: 100px;
     font-family: inherit;
     border: none;
-    background-color: rgb(206, 255, 101);
+    background-color: inherit;
     color: inherit;
     cursor: pointer;
 }
@@ -61,14 +61,9 @@ a{
     margin-right: auto;
     font-family: inherit;
     border: none;
-    background-color: rgb(206, 255, 101);
+    background-color: inherit;
     color: inherit;
     cursor: pointer;
-    transition-duration: 1s;
-}
-
-#headToTitle:hover{
-    color: red;
 }
 
 .btns{
@@ -76,19 +71,15 @@ a{
     font-size: 25px;
     font-family: inherit;
     border: none;
-    background-color: rgb(206, 255, 101);
+    background-color: inherit;
     color: inherit;
     cursor: pointer;
-    transition-duration: 1s;
-}
-
-.btns:hover{
-    color: red;
 }
 
 #reset-btn{
     margin-left: auto;
     margin-right: 25px;
+    border-radius: 50%;
 }
 
 .header{
@@ -110,19 +101,14 @@ a{
 }
 
 .letter-btn{
-    color: rgb(4, 2, 52);
-    background-color: rgb(206, 255, 101);
+    color: inherit;
+    background-color: inherit;
     border-radius: 10px;
     border: none;
     font-family: inherit;
     font-size: 60px;
     cursor: pointer;
     margin-right: 5px;
-    transition-duration: 0.5s;
-}
-
-.letter-btn:hover{
-    color: red;
 }
 
 #emptySpaces{
@@ -146,13 +132,15 @@ a{
 
 .time_css{
     font-size: 50px;
-    color: rgb(172, 26, 26);
+    color: rgb(186, 30, 25);
 }
 
 #footer{
     margin-top: 40px;
     display: flex;
-    width: 100%;
+    align-items: start;
+    justify-content: space-evenly;
+    width: 90%;
 }
 
 #score{
@@ -167,19 +155,23 @@ a{
     font-size: 30px;
 }
 
-img{
-    height: 25px;
-    width: 25px;
-    margin-right: 35px;
-    margin-top: 10px;
-}
-
 #mute{
+    font-size: 32px;
     cursor: pointer;
+    margin-right: 35px;
+    margin-top: 0px;
 }
 
 #time_section{
     display: flex;
     width: 60%;
     justify-content: space-evenly;
+}
+
+#invert{
+    border: none;
+    cursor: pointer;
+    background-color: inherit;
+    font-size: 30px;
+    height: 20px;
 }
