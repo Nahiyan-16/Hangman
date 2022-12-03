@@ -338,13 +338,12 @@ function setUpTimer(){
 }
 
 function getCities(){
-  const citites = ['City','Hong Kong', 'Bangkok', 'Singapore', 'London', 'Paris', 'Dubai', 'Delhi', 'Istanbul', 'New York City', 'Antalya', 'Mumbai', 'Phuket', 'Tokyo',
- 'Rome', 'Mecca', 'Prague', 'Seoul', 'Osaka', 'Medina', 'Amsterdam', 'Denpasar', 'Miami', 'Chennai', 'Shanghai', 'Los Angeles', 'Barcelona',
-  'Cairo', 'Las Vegas', 'Milan', 'Vienna', 'Athens', 'Berlin', 'Cancun', 'Moscow', 'Orlando', 'Madrid', 'Venice']
-  let allCities = [citites]
-  return allCities
-}
-
+    const citites = ['City','Hong Kong', 'Bangkok', 'Singapore', 'London', 'Paris', 'Dubai', 'Delhi', 'Istanbul', 'New York City', 'Antalya', 'Mumbai', 'Phuket', 'Tokyo',
+   'Rome', 'Mecca', 'Prague', 'Seoul', 'Osaka', 'Medina', 'Amsterdam', 'Denpasar', 'Miami', 'Chennai', 'Shanghai', 'Los Angeles', 'Barcelona',
+    'Cairo', 'Las Vegas', 'Milan', 'Vienna', 'Athens', 'Berlin', 'Cancun', 'Moscow', 'Orlando', 'Madrid', 'Venice']
+    let allCities = [citites]
+    return allCities
+  }
 
 function getSoccerTeams(){
   const psg = ['PSG','messi','mbappe','neymar','verratti','hakimi','ramos','marquinhos','donnarumma','mendes','kimpembe','vitinha','sanches','navas']
