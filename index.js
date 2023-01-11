@@ -229,30 +229,6 @@ reset.addEventListener('click',function(){
   resetNext(2)
 })
 
-let changeTopicKey = 0
-
-changeTopic.addEventListener('click',changeTopicFunc)
-
-function changeTopicFunc(){
-  if(changeTopicKey == 0){
-    topic = 'Football'
-    setTimeout(function(){
-      changeTopic.innerHTML = `${topic}`
-    },2500)
-    sub = getCities()
-    changeTopicKey++
-  }
-  else{
-    topic = 'Cities'
-    setTimeout(function(){
-      changeTopic.innerHTML = `${topic}`
-    },2500)
-    sub = getSoccerTeams()
-    changeTopicKey --
-  }
-  resetNext(2)
-}
-
 function resetNext(num){
   if(num === 2){
     score = 0
@@ -363,14 +339,6 @@ function setUpTimer(){
     displayLives()
   }
 }
-
-function getCities(){
-    const citites = ['City','Hong Kong', 'Bangkok', 'Singapore', 'London', 'Paris', 'Dubai', 'Delhi', 'Istanbul', 'New York City', 'Antalya', 'Mumbai', 'Phuket', 'Tokyo',
-   'Rome', 'Mecca', 'Prague', 'Seoul', 'Osaka', 'Medina', 'Amsterdam', 'Denpasar', 'Miami', 'Chennai', 'Shanghai', 'Los Angeles', 'Barcelona',
-    'Cairo', 'Las Vegas', 'Milan', 'Vienna', 'Athens', 'Berlin', 'Cancun', 'Moscow', 'Orlando', 'Madrid', 'Venice']
-    let allCities = [citites]
-    return allCities
-  }
 
 function getSoccerTeams(){
   const psg = ['PSG','messi','mbappe','neymar','verratti','hakimi','ramos','marquinhos','donnarumma','mendes','kimpembe','vitinha','sanches','navas']
